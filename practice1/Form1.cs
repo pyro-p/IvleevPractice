@@ -6,7 +6,10 @@ namespace practice1;
 public partial class Form1 : Form
 {
     int[] arr;
+    int arrLen;
     int[,] arr2D;
+    int arr2DCols;
+    int arr2DRows;
     int task;
 
     public Form1()
@@ -30,43 +33,39 @@ public partial class Form1 : Form
     {
         task = 2;
         labelTask.Text = "Дан целочисленный одномерный массив размера N.\r\n" +
-            "Переставить в обратном порядке элементы массива,\r\n" +
-            "расположенные между его минимальным и максимальным\r\n" +
-            "элементами.";
+            "Переставить обратном порядке элементы массива, расположенные\r\n" +
+            "наибольшим отрицательным и наименьшим положительным.\r\n";
     }
 
     private void Button3_Click(object sender, EventArgs e)
     {
         task = 3;
         labelTask.Text = "Дан целочисленный одномерный массив размера N.\r\n" +
-            "Вставить 2 после каждого четного элемента массива\r\n" +
-            "(четный по значению, а не по порядковому номеру).";
+            "Вставить -1 после каждого отрицательного элемента массива.\r\n";
     }
 
     private void Button4_Click(object sender, EventArgs e)
     {
         task = 4;
         labelTask.Text = "Дан целочисленный одномерный массив размера N.\r\n" +
-            "Удалить из массива все четные элементы (четный по\r\n" +
-            "значению, а не по порядковому номеру). ";
+            "Удалить из массива все отрицательный элементы.";
     }
 
     private void Button5_Click(object sender, EventArgs e)
     {
         task = 5;
         labelTask.Text = "Дан целочисленный двумерный массив размера N*N.\r\n" +
-            "Добавить в массив столбец 0 после каждого столбца,\r\n" +
-            "в котором есть хотя бы один элемент, больший по модулю\r\n" +
-            "среднего арифметического положительных элементов\r\n" +
-            "массива.";
+            "Добавить в массив строку 1 после каждой строки, в которой\r\n" +
+            "есть хотя бы один элемент, меньший по модулю среднего\r\n" +
+            "арифметического четных элементов массива";
     }
 
     private void Button6_Click(object sender, EventArgs e)
     {
         task = 6;
         labelTask.Text = "Дан целочисленный двумерный массив размера N*N.\r\n" +
-            "Упорядочить элементы в матрице по убыванию\r\n" +
-            "(слева направо, сверху-вниз)";
+            "Упорядочить элементы в матрице по возрастанию\r\n" +
+            "(слева направо, сверху - вниз)";
     }
 
     private void ButtonRun_Click(object sender, EventArgs e)
@@ -99,15 +98,16 @@ public partial class Form1 : Form
     {
         textBoxArray.Text = "";
         Random r = new Random();
-        if (int.TryParse(textBoxColumns.Text, out int len))
+        if (int.TryParse(textBoxColumns.Text, out arrLen))
         {
-            arr = new int[len];
+            arr = new int[arrLen * 2];
         }
         else { return; }
+        int.TryParse(textBoxMax.Text, out int max);
 
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = 0; i < arrLen; i++)
         {
-            arr[i] = r.Next(int.Parse(textBoxMax.Text));
+            arr[i] = r.Next(0 - max, max);
             textBoxArray.Text += arr[i] + " ";
         }
     }
@@ -116,15 +116,16 @@ public partial class Form1 : Form
     {
         textBoxArray.Text = "";
         Random r = new Random();
-        if (int.TryParse(textBoxColumns.Text, out int len))
+        if (int.TryParse(textBoxColumns.Text, out arr2DCols))
         {
-            arr2D = new int[len, len];
+            arr2DRows = arr2DCols;
+            arr2D = new int[arr2DRows * 2, arr2DCols * 2];
         }
         else { return; }
 
-        for (int i = 0; i < arr2D.GetLength(0); i++)
+        for (int i = 0; i < arr2DRows; i++)
         {
-            for (int j = 0; j < arr2D.GetLength(1); j++)
+            for (int j = 0; j < arr2DCols; j++)
             {
                 arr2D[i,j] = r.Next(int.Parse(textBoxMax.Text));
                 textBoxArray.Text += arr2D[i,j] + " ";
@@ -178,27 +179,27 @@ public partial class Form1 : Form
     void Task2()
     {
         textBoxOutput.Text = "";
-        int maxVal = int.MinValue;
+        int maxVal = 0;
         int minVal = int.MaxValue;
 
-        int maxIdx = int.MinValue;
-        int minIdx = int.MinValue;
+        int maxIdx = -1;
+        int minIdx = -1;
 
         for (int i = 0; i < arr.Length; i++)
         {
-            if (arr[i] > maxVal)
+            if (arr[i] < 0 && arr[i] < maxVal)
             {
                 maxVal = arr[i];
                 maxIdx = i;
             }
-            if (arr[i] < minVal)
+            if (arr[i] > 0 && arr[i] < minVal)
             {
                 minVal = arr[i];
                 minIdx = i;
             }
         }
 
-        if (minIdx < 0 || maxIdx < 0) return;
+        if (minIdx == -1 || maxIdx == -1) return;
 
         if (minIdx > maxIdx)
         {
@@ -223,26 +224,20 @@ public partial class Form1 : Form
     void Task3()
     {
         textBoxOutput.Text = "";
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = 0; i < arrLen; i++)
         {
-            if (arr[i] % 2 == 0)
+            if (arr[i] < 0 && arrLen + 1 != arr.Length)
             {
-                for (int j = arr.Length - 1; j > i; j--)
+                for (int j = arrLen; j > i; j--)
                 {
-                    if (j - 1 != i)
-                    {
-                        arr[j] = arr[j - 1];
-                    }
-                    else
-                    {
-                        arr[j] = 2;
-                    }
+                    arr[j] = arr[j - 1];
                 }
-                i++;
+                arr[++i] = -1;
+                arrLen++;
             }
         }
 
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = 0; i < arrLen; i++)
         {
             textBoxOutput.Text += arr[i] + " ";
         }
@@ -251,14 +246,13 @@ public partial class Form1 : Form
     void Task4()
     {
         textBoxOutput.Text = "";
-        int len = arr.Length;
 
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < arrLen; i++)
         {
-            if (arr[i] % 2 == 0)
+            if (arr[i] < 0)
             {
-                len--;
-                for (int j = i; j < len; j++)
+                arrLen--;
+                for (int j = i; j < arrLen; j++)
                 {
                     arr[j] = arr[j + 1];
                 }
@@ -266,7 +260,7 @@ public partial class Form1 : Form
             }
         }
 
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < arrLen; i++)
         {
             textBoxOutput.Text += arr[i] + " ";
         }
@@ -277,11 +271,11 @@ public partial class Form1 : Form
         textBoxOutput.Text = "";
         int sum = 0;
         int count = 0;
-        for (int i = 0; i < arr2D.GetLength(0); i++)
+        for (int i = 0; i < arr2DRows; i++)
         {
-            for (int j = 0; j < arr2D.GetLength(1); j++)
+            for (int j = 0; j < arr2DCols; j++)
             {
-                if (arr2D[i,j] > 0)
+                if (arr2D[i,j] % 2 == 0)
                 {
                     sum += arr2D[i,j];
                     count++;
@@ -289,31 +283,51 @@ public partial class Form1 : Form
             }
         }
 
-        int row = 0;
-        for (int j = row; j < arr2D.GetLength(1); j++)
+        for (int i = 0; i < arr2DRows; i++)
         {
-            for (int i = 0; i < arr2D.GetLength(0); i++)
+            for (int j = 0; j < arr2DCols; j++)
             {
-                if (Math.Abs(arr2D[i, j]) > (sum / count))
+                if (i < arr2DRows && Math.Abs(arr2D[i, j]) < (sum / count))
                 {
-                    AddCol(j + 1);
+                    AddRow(i + 1);
 
-                    if (j < arr2D.GetLength(0) - 1)
-                        j++;
-
-                    row++;
+                    if (i < arr2DRows - 1)
+                    {
+                        i += 2;
+                        j = -1;
+                    }
                 }
             }
         }
 
 
-        for (int i = 0; i < arr2D.GetLength(0); i++)
+        for (int i = 0; i < arr2DRows; i++)
         {
-            for (int j = 0; j < arr2D.GetLength(1); j++)
+            for (int j = 0; j < arr2DCols; j++)
             {
                 textBoxOutput.Text += arr2D[i, j] + " ";
             }
             textBoxOutput.Text += "\r\n";
+        }
+    }
+
+    void AddRow(int row)
+    {
+        if (arr2DRows >= arr2D.GetLength(0))
+            return;
+        arr2DRows++;
+
+        for (int i = arr2DRows - 1; i > row; i--)
+        {
+            for (int j = 0; j < arr2DCols; j++)
+            {
+                arr2D[i, j] = arr2D[i - 1, j];
+            }
+        }
+
+        for (int i = 0; i < arr2DRows; i++)
+        {
+            arr2D[row, i] = 1;
         }
     }
 
@@ -326,18 +340,18 @@ public partial class Form1 : Form
         while (!sorted)
         {
             sorted = true;
-            for (int i = 0; i < arr2D.GetLength(0); i++)
+            for (int i = 0; i < arr2DRows; i++)
             {
-                for (int j = 0; j < arr2D.GetLength(1); j++)
+                for (int j = 0; j < arr2DCols; j++)
                 {
-                    if (j + 1 != arr2D.GetLength(1) && arr2D[i, j] < arr2D[i, j + 1])
+                    if (j + 1 != arr2DCols && arr2D[i, j] > arr2D[i, j + 1])
                     {
                         tmp = arr2D[i, j];
                         arr2D[i, j] = arr2D[i, j + 1];
                         arr2D[i, j + 1] = tmp;
                         sorted = false;
                     }
-                    else if (j + 1 == arr2D.GetLength(1) && i + 1 != arr2D.GetLength(1) && arr2D[i, j] < arr2D[i + 1, 0])
+                    else if (j + 1 == arr2DCols && i + 1 != arr2DCols && arr2D[i, j] > arr2D[i + 1, 0])
                     {
                         tmp = arr2D[i, j];
                         arr2D[i, j] = arr2D[i + 1, 0];
@@ -348,32 +362,13 @@ public partial class Form1 : Form
             }
         }
 
-        for (int i = 0; i < arr2D.GetLength(0); i++)
+        for (int i = 0; i < arr2DRows; i++)
         {
-            for (int j = 0; j < arr2D.GetLength(1); j++)
+            for (int j = 0; j < arr2DCols; j++)
             {
                 textBoxOutput.Text += arr2D[i, j] + " ";
             }
             textBoxOutput.Text += "\r\n";
-        }
-    }
-
-    void AddCol(int col)
-    {
-        if (col == arr2D.GetLength(0))
-            return;
-
-        for (int i = 0; i < arr2D.GetLength(0); i++)
-        {
-            for (int j = arr2D.GetLength(1) - 1; j > col; j--)
-            {
-                arr2D[i, j] = arr2D[i, j - 1];
-            }
-        }
-
-        for (int i = 0; i < arr2D.GetLength(0); i++)
-        {
-            arr2D[i, col] = 0;
         }
     }
 }
