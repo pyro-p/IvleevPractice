@@ -6,24 +6,30 @@ using System.Threading.Tasks;
 
 namespace practice3.task1;
 
-public class Chair
+public class Bed
 {
-    private string _material;
+    private string _size;
     private string _color;
 
-    public void SetMaterial(string Material)
+    public void SetSize(string Size)
     {
-        _material = Material;
+        if (Size != "" && Size != null)
+        {
+            _size = Size;
+        }
     }
 
     public void SetColor(string Color)
     {
-        _color = Color;
+        if (Color != "" && Color != null)
+        {
+            _color = Color;
+        }
     }
 
-    public string GetMaterial()
+    public string GetSize()
     {
-        return _material;
+        return _size;
     }
 
     public string GetColor()

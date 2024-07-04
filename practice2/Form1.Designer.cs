@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
-            textBoxStack = new TextBox();
-            buttonStackPrint = new Button();
-            buttonStackPop = new Button();
-            buttonStackPush = new Button();
+            textBoxCircularList = new TextBox();
+            buttonCircularListPrint = new Button();
+            buttonCircularListRemove = new Button();
+            buttonCircularListAdd = new Button();
             label1 = new Label();
             panel2 = new Panel();
             textBoxSortOutput = new TextBox();
@@ -43,9 +43,7 @@
             label2 = new Label();
             panel3 = new Panel();
             textBoxGraphOutput = new TextBox();
-            label5 = new Label();
-            label4 = new Label();
-            textBoxGraphMatrix = new TextBox();
+            textBoxGraphList = new TextBox();
             buttonGraphSearch = new Button();
             textBoxGraphSearch = new TextBox();
             label3 = new Label();
@@ -56,10 +54,10 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(textBoxStack);
-            panel1.Controls.Add(buttonStackPrint);
-            panel1.Controls.Add(buttonStackPop);
-            panel1.Controls.Add(buttonStackPush);
+            panel1.Controls.Add(textBoxCircularList);
+            panel1.Controls.Add(buttonCircularListPrint);
+            panel1.Controls.Add(buttonCircularListRemove);
+            panel1.Controls.Add(buttonCircularListAdd);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -67,42 +65,42 @@
             panel1.Size = new Size(318, 555);
             panel1.TabIndex = 0;
             // 
-            // textBoxStack
+            // textBoxCircularList
             // 
-            textBoxStack.Location = new Point(12, 174);
-            textBoxStack.Name = "textBoxStack";
-            textBoxStack.Size = new Size(297, 23);
-            textBoxStack.TabIndex = 4;
+            textBoxCircularList.Location = new Point(12, 174);
+            textBoxCircularList.Name = "textBoxCircularList";
+            textBoxCircularList.Size = new Size(297, 23);
+            textBoxCircularList.TabIndex = 4;
             // 
-            // buttonStackPrint
+            // buttonCircularListPrint
             // 
-            buttonStackPrint.Location = new Point(213, 145);
-            buttonStackPrint.Name = "buttonStackPrint";
-            buttonStackPrint.Size = new Size(96, 23);
-            buttonStackPrint.TabIndex = 3;
-            buttonStackPrint.Text = "Вывести";
-            buttonStackPrint.UseVisualStyleBackColor = true;
-            buttonStackPrint.Click += ButtonStackPrint_Click;
+            buttonCircularListPrint.Location = new Point(213, 145);
+            buttonCircularListPrint.Name = "buttonCircularListPrint";
+            buttonCircularListPrint.Size = new Size(96, 23);
+            buttonCircularListPrint.TabIndex = 3;
+            buttonCircularListPrint.Text = "Вывести";
+            buttonCircularListPrint.UseVisualStyleBackColor = true;
+            buttonCircularListPrint.Click += ButtonCircularListPrint_Click;
             // 
-            // buttonStackPop
+            // buttonCircularListRemove
             // 
-            buttonStackPop.Location = new Point(111, 145);
-            buttonStackPop.Name = "buttonStackPop";
-            buttonStackPop.Size = new Size(96, 23);
-            buttonStackPop.TabIndex = 2;
-            buttonStackPop.Text = "Извлечь";
-            buttonStackPop.UseVisualStyleBackColor = true;
-            buttonStackPop.Click += ButtonStackPop_Click;
+            buttonCircularListRemove.Location = new Point(111, 145);
+            buttonCircularListRemove.Name = "buttonCircularListRemove";
+            buttonCircularListRemove.Size = new Size(96, 23);
+            buttonCircularListRemove.TabIndex = 2;
+            buttonCircularListRemove.Text = "Удалить";
+            buttonCircularListRemove.UseVisualStyleBackColor = true;
+            buttonCircularListRemove.Click += ButtonCircularListRemove_Click;
             // 
-            // buttonStackPush
+            // buttonCircularListAdd
             // 
-            buttonStackPush.Location = new Point(9, 145);
-            buttonStackPush.Name = "buttonStackPush";
-            buttonStackPush.Size = new Size(96, 23);
-            buttonStackPush.TabIndex = 1;
-            buttonStackPush.Text = "Добавить";
-            buttonStackPush.UseVisualStyleBackColor = true;
-            buttonStackPush.Click += ButtonStackPush_Click;
+            buttonCircularListAdd.Location = new Point(9, 145);
+            buttonCircularListAdd.Name = "buttonCircularListAdd";
+            buttonCircularListAdd.Size = new Size(96, 23);
+            buttonCircularListAdd.TabIndex = 1;
+            buttonCircularListAdd.Text = "Добавить";
+            buttonCircularListAdd.UseVisualStyleBackColor = true;
+            buttonCircularListAdd.Click += ButtonCircularListAdd_Click;
             // 
             // label1
             // 
@@ -110,7 +108,7 @@
             label1.Location = new Point(3, 17);
             label1.Margin = new Padding(8, 8, 8, 0);
             label1.Name = "label1";
-            label1.Size = new Size(315, 105);
+            label1.Size = new Size(294, 90);
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
             // 
@@ -167,16 +165,14 @@
             label2.Location = new Point(8, 17);
             label2.Margin = new Padding(8, 8, 8, 0);
             label2.Name = "label2";
-            label2.Size = new Size(288, 195);
+            label2.Size = new Size(309, 195);
             label2.TabIndex = 4;
             label2.Text = resources.GetString("label2.Text");
             // 
             // panel3
             // 
             panel3.Controls.Add(textBoxGraphOutput);
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(label4);
-            panel3.Controls.Add(textBoxGraphMatrix);
+            panel3.Controls.Add(textBoxGraphList);
             panel3.Controls.Add(buttonGraphSearch);
             panel3.Controls.Add(textBoxGraphSearch);
             panel3.Controls.Add(label3);
@@ -188,41 +184,23 @@
             // 
             // textBoxGraphOutput
             // 
-            textBoxGraphOutput.Location = new Point(149, 96);
+            textBoxGraphOutput.Location = new Point(153, 223);
             textBoxGraphOutput.Multiline = true;
             textBoxGraphOutput.Name = "textBoxGraphOutput";
             textBoxGraphOutput.Size = new Size(80, 169);
             textBoxGraphOutput.TabIndex = 15;
             // 
-            // label5
+            // textBoxGraphList
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(11, 99);
-            label5.Name = "label5";
-            label5.Size = new Size(13, 150);
-            label5.TabIndex = 14;
-            label5.Text = "0\r\n1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(33, 73);
-            label4.Name = "label4";
-            label4.Size = new Size(94, 15);
-            label4.TabIndex = 13;
-            label4.Text = "0 1 2 3 4 5 6 7 8 9";
-            // 
-            // textBoxGraphMatrix
-            // 
-            textBoxGraphMatrix.Location = new Point(30, 96);
-            textBoxGraphMatrix.Multiline = true;
-            textBoxGraphMatrix.Name = "textBoxGraphMatrix";
-            textBoxGraphMatrix.Size = new Size(113, 169);
-            textBoxGraphMatrix.TabIndex = 12;
+            textBoxGraphList.Location = new Point(34, 223);
+            textBoxGraphList.Multiline = true;
+            textBoxGraphList.Name = "textBoxGraphList";
+            textBoxGraphList.Size = new Size(113, 169);
+            textBoxGraphList.TabIndex = 12;
             // 
             // buttonGraphSearch
             // 
-            buttonGraphSearch.Location = new Point(93, 48);
+            buttonGraphSearch.Location = new Point(97, 175);
             buttonGraphSearch.Name = "buttonGraphSearch";
             buttonGraphSearch.Size = new Size(75, 23);
             buttonGraphSearch.TabIndex = 11;
@@ -232,7 +210,7 @@
             // 
             // textBoxGraphSearch
             // 
-            textBoxGraphSearch.Location = new Point(8, 47);
+            textBoxGraphSearch.Location = new Point(12, 174);
             textBoxGraphSearch.Name = "textBoxGraphSearch";
             textBoxGraphSearch.Size = new Size(79, 23);
             textBoxGraphSearch.TabIndex = 10;
@@ -243,9 +221,9 @@
             label3.Location = new Point(3, 8);
             label3.Margin = new Padding(8, 8, 8, 0);
             label3.Name = "label3";
-            label3.Size = new Size(281, 30);
+            label3.Size = new Size(309, 150);
             label3.TabIndex = 9;
-            label3.Text = "Реализовать алгоритм поиска в графе, используя\r\nобход в глубину (матрица смежности). ";
+            label3.Text = resources.GetString("label3.Text");
             // 
             // Form1
             // 
@@ -272,21 +250,19 @@
         private Panel panel2;
         private Panel panel3;
         private Label label1;
-        private Button buttonStackPrint;
-        private Button buttonStackPop;
-        private Button buttonStackPush;
+        private Button buttonCircularListPrint;
+        private Button buttonCircularListRemove;
+        private Button buttonCircularListAdd;
         private Button buttonSortGenerate;
         private Label label2;
         private TextBox textBoxSortSource;
         private Button buttonSortStep;
         private TextBox textBoxSortOutput;
         private Label label3;
-        private TextBox textBoxStack;
-        private TextBox textBoxGraphMatrix;
+        private TextBox textBoxCircularList;
+        private TextBox textBoxGraphList;
         private Button buttonGraphSearch;
         private TextBox textBoxGraphSearch;
-        private Label label5;
-        private Label label4;
         private TextBox textBoxGraphOutput;
     }
 }

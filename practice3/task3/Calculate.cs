@@ -4,6 +4,6 @@ public class Calculate
 {
     public virtual int GetResult(int x, int y)
     {
-        return x + y;
+        return x / y;
     }
 }

@@ -4,6 +4,6 @@ public class CalculateChild : Calculate
 {
     public override int GetResult(int x, int y)
     {
-        return (x + y) * (x + y);
+        return (x - y) * (x - y);
     }
 }

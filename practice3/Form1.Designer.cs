@@ -90,7 +90,7 @@
             // comboBoxObjectMaterial
             // 
             comboBoxObjectMaterial.FormattingEnabled = true;
-            comboBoxObjectMaterial.Items.AddRange(new object[] { "Деревянный", "Пластиковый" });
+            comboBoxObjectMaterial.Items.AddRange(new object[] { "Одноместная", "Двуместная" });
             comboBoxObjectMaterial.Location = new Point(193, 6);
             comboBoxObjectMaterial.Name = "comboBoxObjectMaterial";
             comboBoxObjectMaterial.Size = new Size(100, 23);
@@ -147,7 +147,7 @@
             buttonFigureSquare.Name = "buttonFigureSquare";
             buttonFigureSquare.Size = new Size(121, 23);
             buttonFigureSquare.TabIndex = 5;
-            buttonFigureSquare.Text = "Квадрат";
+            buttonFigureSquare.Text = "Прямоугольник";
             buttonFigureSquare.UseVisualStyleBackColor = true;
             buttonFigureSquare.Click += ButtonFigureSquare_Click;
             // 
@@ -157,7 +157,7 @@
             buttonFigureOval.Name = "buttonFigureOval";
             buttonFigureOval.Size = new Size(121, 23);
             buttonFigureOval.TabIndex = 4;
-            buttonFigureOval.Text = "Овал";
+            buttonFigureOval.Text = "Круг";
             buttonFigureOval.UseVisualStyleBackColor = true;
             buttonFigureOval.Click += ButtonFigureOval_Click;
             // 
