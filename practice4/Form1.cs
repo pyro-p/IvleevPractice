@@ -9,31 +9,45 @@ namespace practice4
 
         private void ButtonAction_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            double.TryParse(maskedTextBoxA.Text, out double A);
-            double.TryParse(maskedTextBoxB.Text, out double B);
-
-            int production = 100;
-            int demand = 150000;
-            int year = 1;
             int step = 1;
-            dataGridView1.Rows.Add(step, year, production, demand);
-
-            while (production < demand)
+            dataGridView1.Rows.Clear();
+            int.TryParse(maskedTextBoxN1.Text, out int N1);
+            dataGridView1.Rows.Add(step++, "", N1, "");
+            int.TryParse(maskedTextBoxN2.Text, out int N2);
+            dataGridView1.Rows.Add(step++, "", "", N2);
+            if (N1 > N2)
             {
-                step++;
-                dataGridView1.Rows.Add(step, "", "", "", "+");
+                dataGridView1.Rows.Add(step++, "", "", "", "-");
+                return;
+            }
+            dataGridView1.Rows.Add(step++, "", "", "", "+");
+
+
+            double.TryParse(maskedTextBoxP1.Text, out double P1);
+            double.TryParse(maskedTextBoxP2.Text, out double P2);
+            if (P1 < P2)
+            {
+                dataGridView1.Rows.Add(step++, "", "", "", "", "", "-");
+                return;
+            }
+            dataGridView1.Rows.Add(step++, "", "", "", "", "", "+");
+
+            int year = 2014;
+            dataGridView1.Rows.Add(step++, year);
+
+            while (N1 < N2)
+            {
+                dataGridView1.Rows.Add(step++, "", "", "", "+");
 
                 year++;
-                step++;
+                dataGridView1.Rows.Add(step++, year);
 
-                production = Convert.ToInt32(production * (A / 100 + 1));
-                demand = Convert.ToInt32(demand * (1 - B / 100));
-
-                dataGridView1.Rows.Add(step, year, production, demand);
+                N1 = Convert.ToInt32(N1 * (P1 / 100 + 1));
+                dataGridView1.Rows.Add(step++, "", N1, "");
+                N2 = Convert.ToInt32(N2 * (1 - P2 / 100));
+                dataGridView1.Rows.Add(step++, "", "", N2);
             }
 
-            step++;
             dataGridView1.Rows.Add(step, "", "", "", "-");
         }
     }

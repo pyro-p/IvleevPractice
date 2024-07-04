@@ -1,4 +1,4 @@
-using System;
+using Serilog;
 
 namespace practice5
 {
@@ -12,49 +12,22 @@ namespace practice5
         private void ButtonStart_Click(object sender, EventArgs e)
         {
             double.TryParse(textBoxX.Text, out double x);
+            Log.Debug("x = {0}", x);
             double s = 0;
-            Log("x = " + x);
 
-            
-
-            for (double i = 1, j = Math.Pow(i * 2, 2) - 1; i <= 50; i++, j = Math.Pow(i * 2, 2) - 1)
+            for (double i = 1; i <= 80; i += 2)
             {
-                s += Math.Cos(i * 2 * x) / j;
-                Log(s.ToString());
+                s += Math.Cos(i * x) / (i * i);
+                Log.Debug("s = {0}", s.ToString());
             }
+                    
+            double y = Math.Pow(Math.PI, 2) / 8 - Math.PI / 4 * Math.Abs(x);
 
-            double y = (double)1 / 2 - ((Math.PI / 4) * Math.Abs(Math.Sin(x)));
-
-            // 8
-            //for (double i = 0, j = 1; i < 40; i++, j += 2)
-            //{
-            //    if (i % 2 == 0)
-            //    {
-            //        s += Math.Pow(x, j) / j;
-            //    }
-            //    else
-            //    {
-            //        s -= Math.Pow(x, j) / j;
-            //    }
-            //    Log(s.ToString());
-            //}
-
-            //double y = Math.Atan(x);
-
-            Log("Y: " + y.ToString());
+            Log.Debug("s = {0}", s.ToString());
+            Log.Debug("y = {0}", y.ToString());
 
             textBoxX.Text = s.ToString();
             textBoxY.Text = y.ToString();
-        }
-
-        private void Log(string message)
-        {
-            string filePath = $"log {DateTime.Now.ToString("yyyy-MM-dd_HH-mm")}.txt";
-
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss:fff") + ": " + message);
-            }
         }
     }
 }

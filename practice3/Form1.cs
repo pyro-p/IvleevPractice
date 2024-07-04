@@ -14,7 +14,7 @@ namespace practice3
         /// <summary>
         /// Task1
         /// </summary>
-        List<Chair> chairs = new();
+        List<Bed> beds = new();
 
         private void ButtonObjectCreate_Click(object sender, EventArgs e)
         {
@@ -24,21 +24,21 @@ namespace practice3
                 return;
             }
 
-            Chair chair = new Chair();
-            chair.SetMaterial(comboBoxObjectMaterial.Text);
-            chair.SetColor(textBoxObjectColor.Text);
-            chairs.Add(chair);
+            Bed bed = new Bed();
+            bed.SetSize(comboBoxObjectMaterial.Text);
+            bed.SetColor(textBoxObjectColor.Text);
+            beds.Add(bed);
         }
 
         private void ButtonObjectOutput_Click(object sender, EventArgs e)
         {
-            if (chairs == null)
+            if (beds == null)
                 return;
 
             listBoxObjects.Items.Clear();
-            foreach (Chair chair in chairs)
+            foreach (Bed bed in beds)
             {
-                listBoxObjects.Items.Add(chair.GetColor() + " " + chair.GetMaterial() + " стул");
+                listBoxObjects.Items.Add(bed.GetColor() + " " + bed.GetSize() + " кровать");
             }
         }
 
@@ -66,7 +66,10 @@ namespace practice3
                     break;
             }
 
-            Square square = new Square(filled, width);
+            startPosX = rnd.Next(pictureBox1.Width);
+            startPosY = rnd.Next(pictureBox1.Height);
+
+            task2.Rectangle square = new task2.Rectangle(filled, width, startPosX, startPosY);
 
             figures.Add(square);
         }
@@ -87,41 +90,21 @@ namespace practice3
                     break;
             }
 
-            Oval oval = new Oval(filled, width);
+            startPosX = rnd.Next(pictureBox1.Width);
+            startPosY = rnd.Next(pictureBox1.Height);
 
-            figures.Add(oval);
+            Circle circle = new Circle(filled, width, startPosX, startPosY);
+
+            figures.Add(circle);
         }
 
         private void ButtonFigureDraw_Click(object sender, EventArgs e)
         {
-
             Bitmap bmp = new(pictureBox1.Width, pictureBox1.Height);
-            Graphics g = Graphics.FromImage(bmp);
-            Pen pen = new Pen(Color.Black, 1);
-            SolidBrush br = new SolidBrush(Color.Black);
 
             foreach (var figure in figures)
             {
-                startPosX = rnd.Next(pictureBox1.Width - figure.Width);
-                startPosY = rnd.Next(pictureBox1.Height - figure.Height);
-
-                if (figure is Oval)
-                {
-                    g.DrawEllipse(pen, startPosX, startPosY, figure.Width, figure.Height);
-                    if (figure.Filled)
-                    {
-                        g.FillEllipse(br, startPosX, startPosY, figure.Width, figure.Height);
-                    }
-                }
-
-                if (figure is Square)
-                {
-                    g.DrawRectangle(pen, startPosX, startPosY, figure.Width, figure.Height);
-                    if (figure.Filled)
-                    {
-                        g.FillRectangle(br, startPosX, startPosY, figure.Width, figure.Height);
-                    }
-                }
+                figure.CreateTools(pictureBox1.Width, pictureBox1.Height, bmp);
             }
 
             pictureBox1.Image = bmp;
